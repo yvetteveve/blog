@@ -1,35 +1,24 @@
 from flask import render_template,request,redirect,url_for
 from . import main
+
+
 from flask import render_template, request, redirect, url_for, abort
-from ..models import User,Comment,Pitch
-from .forms import UpdateProfile
+from ..models import User,Role,Pitch,Comment
+from .forms import UpdateProfile, CreatePitchs, CommentForm
 from .. import db
 from flask_login import login_required, current_user
+import markdown2
+
+
 
 @main.route('/')
 def index():
-
     '''
     View root page function that returns the index page and its data
     '''
-
-   
-
-    title = 'Home - Welcome to The best pitch Review Website Online'
-
-    
-    return render_template('index.html', title = title)
-
-
-@main.route('/user/<uname>')
-def profile(uname):
-    user = User.query.filter_by(username=uname).first()
-
-    if user is None:
-        abort(404)
-
-    return render_template("profile/profile.html", user=user)
-
+    title = 'pitch'
+    pitch = Pitch.query.all()
+    return render_template('index.html', title=title, pitch=pitch)
 
 @main.route('/user/<uname>/update', methods=['GET', 'POST'])
 @login_required
@@ -46,21 +35,18 @@ def update_profile(uname):
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('.profile', uname=user.username))
 
     return render_template('profile/update.html', form=form)
-
 
 
 @main.route('/pitch', methods=['GET', 'POST'])
 def create_pitchs():
     form = CreatePitchs()
-    print(current_user.id)
     if form.validate_on_submit():
 
         pitch = form.pitch.data
 
-        new_pitch = Pitch(pitch=pitch, userid=current_user.id)
+        new_pitch = Pitch(pitch=pitch, user_id=current_user.id)
 
         db.session.add(new_pitch)
         db.session.commit()
@@ -79,9 +65,10 @@ def create_comments(id):
 
         comment = form.comment.data
 
-        new_comment = Comment(comment=comment, pitchid=id,userid=current_user.id)
+        new_comment = Comment(comment=comment, pitch_id=id,user_id=current_user.id)
         db.session.add(new_comment)
         db.session.commit()
-        comment = Comment.query.filter_by(pitchid=id).all()
+
+    comment = Comment.query.filter_by(pitch_id=id).all()
 
     return render_template('comment.html', comment=comment, form=form)

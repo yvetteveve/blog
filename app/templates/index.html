@@ -1,46 +1,26 @@
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        {% if title %}
-        <title> {{ title }}</title>
-        {% else %}
-        <title>'Welcome to pitch'</title>
-        {% endif %}
-        {% extends 'base.html'%}
+{% extends 'base.html'%}
 
-<!-- Styles block -->
+<body>
+    {% block styles%} {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %} {% block content %}
 
-        {% block styles%}
-        {{ super() }}
-        <link rel="stylesheet" href="{{url_for('static',pitches='css/index.css')}}">
-        
-        {% endblock %}
-        
-    </head>
-  
-    <body>
-        
-        <h1>'Welcome to Pitch'</h1>
-        <h2>hello </h2>
-    <!-- Content block -->
-   
-    {% block content %}
-    
     <div class="container">
 
-    <div id="heading">
-    <form>
-        <input type="text" name="pitch_query" placeholder="Search for a Pitch" class="form-control">
-        <input type="submit"  value="Submit" class="btn btn-default">
-    </form>
-</div>
-</div>
-    <!-- Popular movie -->
-    <h3> </h3>
-
-{% endblock%}
-       
+        <h1 id="heading">Welcome to pitches</h1>
+        <div class='base'>
+            <a href="{{url_for('main.create_pitchs')}}">Create Pitch</a>
+        </div>
+        {% for hell in pitch %}
+        <p>{{hell.pitch}}</p>
+        <div class="base-sm">
+            <!-- <a href="/comment/new/{{hell.id}}"><button id="but">comments</button></a><br> -->
+            <a href="/pitch/comment/{{hell.id}}"><button id="comment">comments</button></a><br>
+            <button><img src="https://www.northernsun.com/images/imagelarge/Heart-Small-Button-(0008).jpg"
+                    height="20"></button><button><img src="https://previews.123rf.com/images/valentint/valentint1704/valentint170400501/75332280-broken-heart-icon-broken-heart-website-button-on-white-background-.jpg"
+                    height="20"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock%}
 </body>
-</html>
