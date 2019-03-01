@@ -1,5 +1,5 @@
 ## Pitch Website.
-Pitch It is a web application that is meant for users to add pitches and one can get likes or comments, February 29th 2019
+Pitch It is a web application that is meant for users to add pitches and one can get likes or comments, February 29th 2019.
 ## By Yvette Umubyeyi.
 
 ## Description
