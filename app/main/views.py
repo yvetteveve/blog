@@ -14,10 +14,10 @@ def index():
     View root page function that returns the index page and its data
     '''
 
-    # Getting popular movie
+    # Getting popular pitch
    
 
-    title = 'Home - Welcome to The best Movie Review Website Online'
+    title = 'Home - Welcome to The best pitch Review Website Online'
 
     
     return render_template('index.html', title = title)

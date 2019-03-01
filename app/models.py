@@ -37,17 +37,22 @@ class User(UserMixin, db.Model):
         __tablename__ = 'pitch'
 
       id = db.Column(db.Integer, primary_key=True)
-      pitch = db.Column(db.String(255), index=True)
-      user id = db.Column(db.String(255), unique=True, index=True)
+      pitch = db.Column(db.String(255),
       user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
       user_id = db.Column(db.Integer,db.ForeignKey("pitch.id"))
+      comment = db.relationship("Comment", backref="pitch", lazy="dynamic")
+
+      def save_pitch(self):
+            db.session.add(self)
+            db.session.commit()
 
     class comment(db.Model)
      __tablename__ = 'comment'
 
      id = db.Column(db.Integer, primary_key=True)
-      username = db.Column(db.String(255), index=True)
-      email = db.Column(db.String(255), unique=True, index=True)
-      user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+     comment = db.Column(db.String(255))
+     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+     pitch_id = db.Column(db.Integer, db.ForeignKey("pitch.id"))
+ 
 
     
