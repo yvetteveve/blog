@@ -33,26 +33,27 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.pass_secure, password)
 
-    class pitch(db.Model):
+    class Pitch(db.Model):
         __tablename__ = 'pitch'
 
-      id = db.Column(db.Integer, primary_key=True)
-      pitch = db.Column(db.String(255),
-      user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-      user_id = db.Column(db.Integer,db.ForeignKey("pitch.id"))
-      comment = db.relationship("Comment", backref="pitch", lazy="dynamic")
+      
+        id = db.Column(db.Integer, primary_key=True)
+        pitch = db.Column(db.String(255))
+        userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+        comment = db.relationship("Comment", backref="pitch", lazy="dynamic")
 
-      def save_pitch(self):
-            db.session.add(self)
-            db.session.commit()
+    
+    class Comment(db.Model):
+        __tablename__ = 'comment'
 
-    class comment(db.Model)
-     __tablename__ = 'comment'
 
-     id = db.Column(db.Integer, primary_key=True)
-     comment = db.Column(db.String(255))
-     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-     pitch_id = db.Column(db.Integer, db.ForeignKey("pitch.id"))
+        id = db.Column(db.Integer, primary_key=True)
+        comment = db.Column(db.String(255))
+        userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+        pitchid = db.Column(db.Integer, db.ForeignKey("pitch.id"))
+
+
+ 
  
 
     

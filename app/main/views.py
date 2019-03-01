@@ -1,9 +1,8 @@
 from flask import render_template,request,redirect,url_for
 from . import main
-from .forms import ReviewForm
 from flask import render_template, request, redirect, url_for, abort
-from ..models import User
-from .forms import ReviewForm, UpdateProfile
+from ..models import User,Comment,Pitch
+from .forms import UpdateProfile
 from .. import db
 from flask_login import login_required, current_user
 
@@ -14,7 +13,6 @@ def index():
     View root page function that returns the index page and its data
     '''
 
-    # Getting popular pitch
    
 
     title = 'Home - Welcome to The best pitch Review Website Online'
@@ -53,15 +51,37 @@ def update_profile(uname):
     return render_template('profile/update.html', form=form)
 
 
-@main.route('/user/<uname>/update/pic', methods=['POST'])
-@login_required
-def update_pic(uname):
-    user = User.query.filter_by(username=uname).first()
-    if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
+
+@main.route('/pitch', methods=['GET', 'POST'])
+def create_pitchs():
+    form = CreatePitchs()
+    print(current_user.id)
+    if form.validate_on_submit():
+
+        pitch = form.pitch.data
+
+        new_pitch = Pitch(pitch=pitch, userid=current_user.id)
+
+        db.session.add(new_pitch)
         db.session.commit()
-    return redirect(url_for('main.profile', uname=uname))
+
+        return redirect(url_for('main.index'))
+
+    return render_template('pitch.html', form=form, user=current_user)
 
 
+@main.route('/pitch/comment/<int:id>', methods=['GET', 'POST'])
+@login_required
+def create_comments(id):
+    form = CommentForm()
+   
+    if form.validate_on_submit():
+
+        comment = form.comment.data
+
+        new_comment = Comment(comment=comment, pitchid=id,userid=current_user.id)
+        db.session.add(new_comment)
+        db.session.commit()
+        comment = Comment.query.filter_by(pitchid=id).all()
+
+    return render_template('comment.html', comment=comment, form=form)
