@@ -11,8 +11,8 @@
         <div class='base'>
             <a href="{{url_for('main.create_pitchs')}}">Create Pitch</a>
         </div>
-        {% for hell in pitch %}
-        <p>{{hell.pitch}}</p>
+        {% for pit in pitch %}
+        <p>{{pit.pitch}}</p>
         <div class="base-sm">
             <!-- <a href="/comment/new/{{hell.id}}"><button id="but">comments</button></a><br> -->
             <a href="/pitch/comment/{{hell.id}}"><button id="comment">comments</button></a><br>
