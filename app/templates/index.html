@@ -7,8 +7,6 @@
 
     <div class="container">
 
-    <div class="body" background-image: url=("") height= "200">   
-
         <h1 id="heading">Welcome to pitches</h1>
         <div class='base'>
             <a href="{{url_for('main.create_pitchs')}}">Create Pitch</a>
@@ -20,9 +18,7 @@
             <a href="/pitch/comment/{{hell.id}}"><button id="comment">comments</button></a><br>
             <button><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4MpRJ42ANlLKCgmO_G1Lb7YBNroDPnKARUiq2u4Gt9hXUvF2s"
                     height="20"></button><button><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQne60Jiq9KaP8z9nSgYPk8t6WcKw73n6Hr-Pc9sIg2q5fLBpLq4Q"
-                      height="20"></button>
-
-        </div>             
+                    height="20"></button>
         </div>
         {% endfor %}
     </div>
