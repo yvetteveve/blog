@@ -27,7 +27,7 @@ Terminal
 HTML
 Heroku
 Postgresql
-Support and contact details
+## Support and contact details:
 If needed contact me on: E-mail:yvetteumubyeyi2@gmail.com Phone:0782237885.
 
 ## License
