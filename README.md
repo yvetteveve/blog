@@ -28,7 +28,9 @@ HTML
 Heroku
 Postgresql
 ## Support and contact details:
-If needed contact me on: E-mail:yvetteumubyeyi2@gmail.com Phone:0782237885.
+If needed contact me on: 
+E-mail:yvetteumubyeyi2@gmail.com 
+Phone:0782237885.
 
 ## License
 MIT Copyright (c) 2019 YVETTE UMUBYEYI
