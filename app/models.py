@@ -58,15 +58,15 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.pass_secure, password)
 
 
-class Pitch(db.Model):
-        __tablename__ = 'pitch'
+class blog(db.Model):
+        __tablename__ = 'blog'
     
         id = db.Column(db.Integer, primary_key=True)
         pitch = db.Column(db.String(255))
         user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-        comment = db.relationship("Comment", backref="pitch", lazy="dynamic")
+        comment = db.relationship("Comment", backref="blog", lazy="dynamic")
 
-        def save_pitch(self):
+        def save_blog(self):
             db.session.add(self)
             db.session.commit()
         
@@ -77,7 +77,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitch_id = db.Column(db.Integer, db.ForeignKey("pitch.id"))
+    pitch_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
 
 
     def save_comment(self):
