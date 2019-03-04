@@ -3,14 +3,14 @@ from wtforms import StringField,TextAreaField,SubmitField
 from wtforms.validators import Required
 
 
-class ReviewForm(FlaskForm):
+# class ReviewForm(FlaskForm):
 
- title = StringField('Review title', validators=[Required()])
+#  title = StringField('Review title', validators=[Required()])
 
- review = TextAreaField('Pitch review')
+#  review = TextAreaField('Pitch review')
  
 
- submit = SubmitField('Submit')
+#  submit = SubmitField('Submit')
 
 
 class UpdateProfile(FlaskForm):
