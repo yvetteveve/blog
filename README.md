@@ -18,7 +18,7 @@ The user has to login into his/her account and sign in if the user has no accoun
 The user is able to read blogs without creating an account but the user cannot blog without an account
 The user can also leave a comment to any pitch he/she wants but has to first login or create an account
 The user can also update his/her profile however the user like.
-SQLAlchemy errors, automatic sign out has a short time span
+SQLAlchemy errors, automatic sign out has a short time span.
 
 ## Technologies Used:
 Python
@@ -33,4 +33,4 @@ E-mail:yvetteumubyeyi2@gmail.com
 Phone:0782237885.
 
 ## License
-MIT Copyright (c) 2019 YVETTE UMUBYEYI
+MIT Copyright (c) 2019 YVETTE UMUBYEYI.
