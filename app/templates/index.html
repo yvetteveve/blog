@@ -1,26 +1,39 @@
+{% extends 'base.html'%} {% import 'macros.html' as macro%}
+<!-- {{ fontawesome_html() }} -->
+<!-- {% import "bootstrap/wtf.html" as wtf %} -->
 
-{% extends 'base.html'%}
+<!-- Styles block -->
 
-<body>
-    {% block styles%} {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %} {% block content %}
-
-    <div class="container">
-
-        <h1 id="heading">'Welcome to App Blog'</h1>
-        <div class='base'>
-            <a href="{{url_for('main.create_blogs')}}">Create blog</a>
-        </div>
-        {% for pit in blog %}
-        <p>{{pit.blog}}</p>
-        <div class="base-sm">
-            <!-- <a href="/comment/new/{{hell.id}}"><button id="but">comments</button></a><br> -->
-            <a href="/blog/comment/{{hell.id}}"><button id="comment">comments</button></a><br>
-            <button><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4MpRJ42ANlLKCgmO_G1Lb7YBNroDPnKARUiq2u4Gt9hXUvF2s"
-                    height="20"></button><button><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQne60Jiq9KaP8z9nSgYPk8t6WcKw73n6Hr-Pc9sIg2q5fLBpLq4Q"
-                    height="20"></button>
-        </div>
-        {% endfor %}
+{% block styles%} {{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <blockquote class="text-center text-lg">
+            <p>{{quote.content}}</p>
+            <footer><cite>{{quote.author}}</cite></footer>
+        </blockquote>
     </div>
-    {% endblock%}
-</body>
+
+</div>
+{{ macro.displayPosts(posts)}}<br>
+<div class="container">
+    <a href="/post/new" class="btn btn-primary">Add Blog post</a>
+
+</div>
+
+<div id="sub">
+    <h3>If you want to receive notifications when new post is added.</h3>
+    <h2>Subscribe here</h2>
+    <div id='subscription' class='container'>
+
+        {{wtf.quick_form(subscription_form)}}
+    </div>
+</div>
+
+{% endblock %}
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+
