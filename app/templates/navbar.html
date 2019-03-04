@@ -30,9 +30,9 @@
     <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
         <li><a href="{{url_for('main.update_profile',uname=current_user.username)}}">Profile</a></li>
-        <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+        <li><a href="{{url_for('auth.logout')}}">Login out</a></li>
         {% else %}
-        <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+        <li><a href="{{url_for('auth.login')}}">Login in</a></li>
         {%endif%}
     </ul>
     © 2019 GitHub, Inc.

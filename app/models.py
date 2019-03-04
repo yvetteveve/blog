@@ -7,19 +7,19 @@ from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
-
-def Quote:
+       return User.query.get(int(user_id))
+       def Quote:
     '''
     Quote class to define quote objects
 
     '''
+    
 def _init_(self,id,author,content)
-self.id=id
-self.author=author
+ self.id=id
+ self.author=author
 
 
-    raise NotImplementedError
+ raise NotImplementedError
 
 
 class Role(db.Model):
@@ -28,7 +28,6 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     users = db.relationship('User', backref='role', lazy="dynamic")
-
     def __repr__(self):
         return f'User {self.name}'
 
@@ -62,25 +61,25 @@ class blog(db.Model):
         __tablename__ = 'blog'
     
         id = db.Column(db.Integer, primary_key=True)
-        pitch = db.Column(db.String(255))
+        blog = db.Column(db.String(255))
         user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
         comment = db.relationship("Comment", backref="blog", lazy="dynamic")
 
-        def save_blog(self):
+    def save_blog(self):
             db.session.add(self)
             db.session.commit()
         
 class Comment(db.Model):
-    __tablename__ = 'comment'
+      __tablename__ = 'comment'
 
 
-    id = db.Column(db.Integer, primary_key=True)
-    comment = db.Column(db.String(255))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitch_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
+        id = db.Column(db.Integer, primary_key=True)
+        comment = db.Column(db.String(255))
+        user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+        blog_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
 
 
-    def save_comment(self):
+     def save_comment(self):
         db.session.add(self)
         db.session.commit()
 
