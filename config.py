@@ -5,7 +5,7 @@ class Config:
     QUOTE_API_BASE_URL = "http://quotes.stormconsultancy.co.uk/random.json"
     QUOTE_API_KEY = os.environ.get('QUOTE_API_KEY')
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:123@localhost/blog'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:123localhost/blog'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 # simple mde  configurations
     SIMPLEMDE_JS_IIFE = True
