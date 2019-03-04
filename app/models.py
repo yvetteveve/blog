@@ -9,7 +9,17 @@ from datetime import datetime
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+def Quote:
+    '''
+    Quote class to define quote objects
 
+    '''
+def _init_(self,id,author,content)
+self.id=id
+self.author=author
+
+
+    raise NotImplementedError
 
 
 class Role(db.Model):

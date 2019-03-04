@@ -7,15 +7,15 @@
 
     <div class="container">
 
-        <h1 id="heading">Welcome to pitches</h1>
+        <h1 id="heading">Welcome to Blog</h1>
         <div class='base'>
-            <a href="{{url_for('main.create_pitchs')}}">Create Pitch</a>
+            <a href="{{url_for('main.create_blogs')}}">Create blog</a>
         </div>
-        {% for pit in pitch %}
-        <p>{{pit.pitch}}</p>
+        {% for pit in blog %}
+        <p>{{pit.blog}}</p>
         <div class="base-sm">
             <!-- <a href="/comment/new/{{hell.id}}"><button id="but">comments</button></a><br> -->
-            <a href="/pitch/comment/{{hell.id}}"><button id="comment">comments</button></a><br>
+            <a href="/blog/comment/{{hell.id}}"><button id="comment">comments</button></a><br>
             <button><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4MpRJ42ANlLKCgmO_G1Lb7YBNroDPnKARUiq2u4Gt9hXUvF2s"
                     height="20"></button><button><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQne60Jiq9KaP8z9nSgYPk8t6WcKw73n6Hr-Pc9sIg2q5fLBpLq4Q"
                     height="20"></button>

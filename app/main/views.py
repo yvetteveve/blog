@@ -3,8 +3,8 @@ from . import main
 
 
 from flask import render_template, request, redirect, url_for, abort
-from ..models import User,Role,Pitch,Comment
-from .forms import UpdateProfile, CreatePitchs, CommentForm
+from ..models import User,Role,blog,Comment
+from .forms import UpdateProfile, Createblogs, CommentForm
 from .. import db
 from flask_login import login_required, current_user
 import markdown2
@@ -16,9 +16,9 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    title = 'pitch'
-    pitch = Pitch.query.all()
-    return render_template('index.html', title=title, pitch=pitch)
+    title = 'blog'
+    blog = blog.query.all()
+    return render_template('index.html', title=title, blog=blog)
 
 @main.route('/user/<uname>/update', methods=['GET', 'POST'])
 @login_required
@@ -39,24 +39,24 @@ def update_profile(uname):
     return render_template('profile/update.html', form=form)
 
 
-@main.route('/pitch', methods=['GET', 'POST'])
-def create_pitchs():
-    form = CreatePitchs()
+@main.route('/blog', methods=['GET', 'POST'])
+def create_blogs():
+    form = Createblogs()
     if form.validate_on_submit():
 
-        pitch = form.pitch.data
+        blog = form.blog.data
 
-        new_pitch = Pitch(pitch=pitch, user_id=current_user.id)
+        new_blog = blog(blog=blog, user_id=current_user.id)
 
-        db.session.add(new_pitch)
+        db.session.add(new_blog)
         db.session.commit()
 
         return redirect(url_for('main.index'))
 
-    return render_template('pitch.html', form=form, user=current_user)
+    return render_template('blog.html', form=form, user=current_user)
 
 
-@main.route('/pitch/comment/<int:id>', methods=['GET', 'POST'])
+@main.route('/blog/comment/<int:id>', methods=['GET', 'POST'])
 @login_required
 def create_comments(id):
     form = CommentForm()
@@ -65,10 +65,10 @@ def create_comments(id):
 
         comment = form.comment.data
 
-        new_comment = Comment(comment=comment, pitch_id=id,user_id=current_user.id)
+        new_comment = Comment(comment=comment, blog_id=id,user_id=current_user.id)
         db.session.add(new_comment)
         db.session.commit()
 
-    comment = Comment.query.filter_by(pitch_id=id).all()
+    comment = Comment.query.filter_by(blog_id=id).all()
 
     return render_template('comment.html', comment=comment, form=form)
