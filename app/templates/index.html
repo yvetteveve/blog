@@ -1,39 +1,56 @@
-{% extends 'base.html'%} {% import 'macros.html' as macro%}
-<!-- {{ fontawesome_html() }} -->
-<!-- {% import "bootstrap/wtf.html" as wtf %} -->
-
-<!-- Styles block -->
-
-{% block styles%} {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %} {% block content %}
-<div class="container">
-    <div class="row">
-        <blockquote class="text-center text-lg">
-            <p>{{quote.content}}</p>
-            <footer><cite>{{quote.author}}</cite></footer>
-        </blockquote>
-    </div>
-
-</div>
-{{ macro.displayPosts(posts)}}<br>
-<div class="container">
-    <a href="/post/new" class="btn btn-primary">Add Blog post</a>
-
-</div>
-
-<div id="sub">
-    <h3>If you want to receive notifications when new post is added.</h3>
-    <h2>Subscribe here</h2>
-    <div id='subscription' class='container'>
-
-        {{wtf.quick_form(subscription_form)}}
-    </div>
-</div>
-
+{% extends 'base.html'%}
+<body>
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
 {% endblock %}
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
 
+{% block content %}
+<div class="jumbotron text-center" style="background-color: brown; color: #fff; padding: 55px 25px; font-family: 'Monoton', cursive;">
+
+<div class="container">
+  
+
+        <h1 id="heading">'Welcome to Blog App'</h1>
+        {% if current_user.is_authenticated %}
+        <div class="well">
+             <a href="{{ url_for(main.create_blogs)}}">New Post</a></div>
+        
+        {% else %}
+        </p>
+        {%endif%}
+        
+<br>
+<br>
+    
+    <div class="well-lg" id="random">
+        <h2>Random Quote</h2> <br>
+        <p>{{quote.quote}}</p>
+        <p>Author: {{quote.author}}</p> 
+    </div>
+    
+    <a href="/subscribe/{{current_user.id}}" class="btn btn-success">Subscribe</a>   
+
+<div class = "blogs">
+    
+</div>
+        
+{% for word in blog %}
+    <h5>{{word.user.username}}</h5>
+    <h3>{{word.title}}</h3>
+    <p><strong>{{word.blog}}</strong></p>
+    <div class="well-sm">
+    <a href="/comment/new/{{word.id}}"><button id="but">comments</button></a><br>
+    </div>
+
+    {% if current_user.is_authenticated %}
+        <a href="{{url_for('main.delete_blog',id=word.id)}}"><button>DELETE</button></a>
+        <a href="{{url_for('main.upgrade_blogs',id=word.id)}}"><button>Update</button></a>
+        {% else %}
+        <p> </p> -->
+    {% endif %}
+
+{% endfor %}
+</div>    
+{% endblock %}
+</body>

@@ -7,31 +7,32 @@ from ..models import Quote,Post,User,Comment,Subscription
 from flask_login import login_required, current_user
 from ..email import mail_message
 
-# import markdown2 
-# from flask_fontawesome import FontAwesome
+    # import markdown2 
+    # from flask_fontawesome import FontAwesome
 
 @main.route('/', methods = ['GET', 'POST'])
 def index():
-  '''
+    '''
     View root page function that returns the index page and its data
     '''
-  form=SubscriptionForm()
-  if form.validate_on_submit():
-        name = form.name.data
+    form=SubscriptionForm()
+
+    if form.validate_on_submit():
+        name=form.name.data
 
         email= form.email.data
         new_subscriber=Subscription(name=name,email=email)
         db.session.add(new_subscriber)
         db.session.commit()
 
-        mail_message("Thank you for subscribing","email/welcome_user",new_subscriber.email,user=new_subscriber)
+    # mail_message("Thank you for subscribing","email/welcome_user",new_subscriber.email,user=new_subscriber)
 
         return redirect(url_for('main.index'))
-  quote=get_quote()
-  posts=Post.get_posts()
-  title="Home| Welcome to MeBlog"
+    quote=get_quote()
+    posts=Post.get_posts()
+    title="Home| Welcome to our blog App"
 
-  return render_template('index.html',title=title,quote=quote,posts=posts,subscription_form=form)
+    return render_template('index.html',title=title,quote=quote,posts=posts,subscription_form=form)
 
 @main.route('/post/<int:id>')
 def single_post(id):
@@ -47,7 +48,8 @@ def delete_comment(id):
 
     if comment is not None:
        comment.delete_comment()
-       return redirect(url_for('main.index'))
+
+    return redirect(url_for('main.index'))
 
 @main.route('/delete/post/<int:id>', methods = ['GET', 'POST'])
 @login_required
@@ -57,7 +59,8 @@ def delete_post(id):
 
     if post is not None:
        post.delete_post(id)
-       return redirect(url_for('main.index'))
+
+    return redirect(url_for('main.index'))
 
  
 
@@ -67,19 +70,19 @@ def add_post():
     form = AddPostForm()
     
     if form.validate_on_submit():
-        title = form.title.data
+       title = form.title.data
 
-        post= form.content.data
-        image=form.image.data
+    post= form.content.data
+    image=form.image.data
 
-        new_post = Post(content=post, title = title,image=image)
-        new_post.save_post()
+    new_post = Post(content=post, title = title,image=image)
+    new_post.save_post()
 
-        subscribers=Subscription.query.all()
-        for subscriber in subscribers:
-           mail_message("New Post","email/send_email",subscriber.email,user=subscriber,post=new_post)
+    subscribers=Subscription.query.all()
+    for subscriber in subscribers:
+        mail_message("New Post","email/send_email",subscriber.email,user=subscriber,post=new_post)
 
-        return redirect(url_for('main.index'))
+    return redirect(url_for('main.index'))
 
     
 
@@ -89,20 +92,20 @@ def add_post():
 
 @main.route('/new/comment/<int:id>', methods = ['GET','POST'])
 def add_comment(id):
-  post=Post.query.filter_by(id=id).first()
-  if post is None:
-    abort(404)
+    post=Post.query.filter_by(id=id).first()
+    if post is None:
+       abort(404)
 
-  form=CommentForm()
-  if form.validate_on_submit():
-     name=form.username.data
-     comment=form.comment.data
-     new_comment=Comment(content=comment ,post=post,username=name)
-     db.session.add(new_comment)  
-     db.session.commit() 
+    form=CommentForm()
+    if form.validate_on_submit():
+       name=form.username.data
+       comment=form.comment.data
+       new_comment=Comment(content=comment ,post=post,username=name)
+       db.session.add(new_comment)  
+       db.session.commit() 
      
-     return redirect(url_for('main.index'))
-  return render_template('comment.html', comment_form=form)
+    return redirect(url_for('main.index'))
+    return render_template('comment.html', comment_form=form)
 
 
 @main.route('/user/<uname>')
@@ -124,12 +127,12 @@ def update_profile(uname):
     form = UpdateProfile()
 
     if form.validate_on_submit():
-        user.bio = form.bio.data
+       user.bio = form.bio.data
 
-        db.session.add(user)
-        db.session.commit()
+       db.session.add(user)
+       db.session.commit()
 
-        return redirect(url_for('.profile',uname=user.username))
+    return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
 
@@ -147,20 +150,20 @@ def update_pic(uname):
 @main.route('/edit/post/<int:id>',methods= ['GET','POST'])
 @login_required
 def update_post(id):
-   post=Post.query.filter_by(id=id).first()
-   if post is None:
+    post=Post.query.filter_by(id=id).first()
+    if post is None:
         abort(404)
 
-   form=UpdatePostForm()
-#    form.title.data=post.title
-#    form.content.data=post.content
-#    post1=Post.query.filter_by(id=id).first()
-   if form.validate_on_submit():
-         post.title=form.title.data
-         post.content=form.content.data
+    form=UpdatePostForm()
+    # form.title.data=post.title
+    # form.content.data=post.content
+    # post1=Post.query.filter_by(id=id).first()
+    if form.validate_on_submit():
+        post.title=form.title.data
+        post.content=form.content.data
 
-         db.session.add(post)
-         db.session.commit()
+        db.session.add(post)
+        db.session.commit()
 
-         return redirect(url_for('main.index'))
-   return render_template('update_post.html',form=form)
+    return redirect(url_for('main.index'))
+    return render_template('update_post.html',form=form)
